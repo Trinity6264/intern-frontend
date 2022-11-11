@@ -1,0 +1,12 @@
+.login-auth-wrapper{
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, .8);
+    border-radius: 10px;
+    max-width: 90%;
+    /* width: 30rem; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
