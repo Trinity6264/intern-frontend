@@ -1,8 +1,37 @@
-# Getting Started with Create React App
+
+> ### This read Me will take you through how this app was built 
+
+
+
+## Getting Started with Create React App
+
+Install all dependencies by running this command
+
+```bash
+   npm install
+```
+
+## Dependencies Used
+
+- Redux => State management
+- React-router-dom => Easy Navigation
+- React-toastify => Showing errors and infos  
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+- [Getting Started with Create React App](#getting-started-with-create-react-app)
+- [Dependencies Used](#dependencies-used)
+  - [`npm start`](#npm-start)
+  - [`npm test`](#npm-test)
+  - [`npm run build`](#npm-run-build)
+  - [`npm run eject`](#npm-run-eject)
+- [Learn More](#learn-more)
+  - [Code Splitting](#code-splitting)
+  - [Analyzing the Bundle Size](#analyzing-the-bundle-size)
+  - [Making a Progressive Web App](#making-a-progressive-web-app)
+  - [Advanced Configuration](#advanced-configuration)
+  - [Deployment](#deployment)
+  - [`npm run build` fails to minify](#npm-run-build-fails-to-minify)
 
 In the project directory, you can run:
 
