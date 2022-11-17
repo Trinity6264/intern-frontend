@@ -43,3 +43,19 @@ code {
   list-style: none;
   text-decoration: none;
 }
+
+.main-area-heading {
+  /* width: 100%; */
+  padding: 1rem 2rem;
+  background-color: var(--white);
+  border-radius: var(--b-radius);
+  margin: 0 10px;
+  margin-bottom: 1.2rem;
+}
+
+.main-area-heading > p {
+  margin: 0px;
+  color: var(--green-500);
+  font-size: 1.5rem;
+  font-weight: 500;
+}

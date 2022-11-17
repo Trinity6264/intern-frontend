@@ -5,7 +5,7 @@ import '../auth/style/Background.css'
 const Background = () => {
   return (
     <div className='background__wrapper'>
-      <img src={BackgroundImg} alt="Background Image" />
+      <img src={BackgroundImg} alt="BackgroundImage" />
     </div>
   )
 }
