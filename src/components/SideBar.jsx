@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './SidebarStyle.css'
 import ProfileImg from '../assets/imgs/SidePaneProfileImage.png'
 import { NavLink } from 'react-router-dom'
-import { RiArrowRightSLine } from 'react-icons/ri'
+import { RiArrowRightSLine,RiCloseFill } from 'react-icons/ri'
 import sidebarData from '../helper/Sidebar_data'
 
 
@@ -10,6 +10,9 @@ const SideBar = () => {
     const [title, setTitle] = useState('Dashboard')
     return (
         <aside className='sidebar'>
+            <div className='close-sidebar-wrapper'>
+                <RiCloseFill className='close-sidebar-btn'/>
+            </div>
             <div className="topsidebar">
                 <div className="background-wrapper"></div>
                 <div className="profile-wrapper">

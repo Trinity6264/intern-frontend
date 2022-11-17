@@ -83,7 +83,7 @@
 }
 
 .listItem:hover {
-  margin-left: .4em;
+  margin-left: 0.4em;
 }
 
 .listItem p {
@@ -92,12 +92,23 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 0;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
-.listItem p span{
-  margin-left: .6rem;
+.listItem p span {
+  margin-left: 0.6rem;
 }
 
+.close-sidebar-wrapper {
+  margin: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  display: none;
+}
+
+.close-sidebar-wrapper .close-sidebar-btn {
+  font-size: 1.8rem;
+}
 
 @media (max-width: 1200px) {
   /* tablet devices */
@@ -125,5 +136,8 @@
   }
   .main_page {
     margin-left: 0 !important;
+  }
+  .close-sidebar-wrapper {
+    display: flex;
   }
 }
