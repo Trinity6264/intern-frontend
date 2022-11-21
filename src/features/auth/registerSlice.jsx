@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
-
-const AuthBaseURL = 'http://localhost:5000/api/v1/student/register'
+import { axiosInstance } from '../../api/axios_api'
 
 
 const initialState = {
@@ -12,7 +10,7 @@ const initialState = {
 
 export const registerStudent = createAsyncThunk('auth/register', async (data) => {
     try {
-        const resp = await axios.post(AuthBaseURL, data);
+        const resp = await axiosInstance.post('student/register', data);
         return resp.data;
     } catch (error) {
         return error?.response?.data

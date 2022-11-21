@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { axiosInstance } from '../../api/axios_api'
 
-const VerifyBaseURL = 'http://localhost:5000/api/v1/student/verify'
+
 
 const initialState = {
     status: 'idle',
@@ -11,7 +11,7 @@ const initialState = {
 
 export const verifyStudent = createAsyncThunk('auth/verify', async (data) => {
     try {
-        const res = await axios.post(VerifyBaseURL, data)
+        const res = await axiosInstance.post('student/verify', data)
         return res.data;
     } catch (error) {
         return error?.response.data;
