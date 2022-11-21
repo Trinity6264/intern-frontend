@@ -15,30 +15,26 @@ function SectionAfterHeading01() {
                     <Stack gap={4}>
                         <Link
                             className="text-decoration-none text-dark"
-                            to="/dashboard/forms/irb1"
+                            to="/form1"
                         >
                             <LinkWithIconAndFileSize
                                 nameOfLink="IRB1 student form"
-                                                            />
-                        </Link>
-                        <Link
-                            className="text-decoration-none text-dark"
-                            to="/dashboard/forms/irb2"
-                        >
-                            <LinkWithIconAndFileSize
-
-                                nameOfLink="IRB2 student form"
-                                
                             />
                         </Link>
                         <Link
                             className="text-decoration-none text-dark"
-                            to="/dashboard/forms/irb5"
+                            to="/form2"
                         >
                             <LinkWithIconAndFileSize
-
+                                nameOfLink="IRB2 student form"
+                            />
+                        </Link>
+                        <Link
+                            className="text-decoration-none text-dark"
+                            to="/form5"
+                        >
+                            <LinkWithIconAndFileSize
                                 nameOfLink="IRB5 student form"
-                                
                             />
                         </Link>
                     </Stack>
