@@ -49,6 +49,6 @@ const selectData = (state) => state.verify.data;
 const selectError = (state) => state.verify.err;
 
 export { selectError, selectStatus, selectData }
-export const { } = verifySlice.actions;
+
 
 export default verifySlice.reducer; 
