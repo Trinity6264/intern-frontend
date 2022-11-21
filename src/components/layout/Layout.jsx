@@ -1,16 +1,19 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import SideBar from '../SideBar'
 
 const Layout = () => {
-    return (
-        <>
-            <SideBar />
-            <section className='main_page'>
-                <Outlet />
-            </section>
-        </>
-    )
+    const isLogin = false;
+    if (isLogin)
+        return (
+            <>
+                <SideBar />
+                <section className='main_page'>
+                    <Outlet />
+                </section>
+            </>
+        )
+        return <Navigate to={'/register'} replace/>
 }
 
 export default Layout
