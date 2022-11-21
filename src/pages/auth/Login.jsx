@@ -30,7 +30,7 @@ const Login = () => {
         const { accessToken, refreshToken } = resp['data']
         localStorage.setItem('user', JSON.stringify({ accessToken, refreshToken }))
         dispatch(userLogin({ accessToken, refreshToken }));
-        nav('/')
+        nav('/', { replace: true, preventScrollReset: true })
         toast.success(resp['msg'])
     }
 
