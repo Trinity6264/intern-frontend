@@ -43,3 +43,4 @@ const registerSlice = createSlice({
 
 })
 
+export default registerSlice.reducer;

@@ -1,10 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
+import { userCredentials } from '../../features/user/userSlice'
 import SideBar from '../SideBar'
 
 const Layout = () => {
-    const isLogin = false;
-    if (isLogin)
+    const user = useSelector(userCredentials) 
+    if (user)
         return (
             <>
                 <SideBar />

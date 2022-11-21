@@ -5,8 +5,14 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { userLogin } from "./features/user/userSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const creden = localStorage.getItem("user") || null;
+console.log(creden);
+if (creden) store.dispatch(userLogin(JSON.parse(creden)));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>

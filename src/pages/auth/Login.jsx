@@ -6,10 +6,13 @@ import './style/LoginStyle.css'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { loginStudent } from '../../features/auth/loginSlice'
+import { userLogin } from '../../features/user/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
 
+    const nav = useNavigate()
     const [index, setIndex] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch()
@@ -24,7 +27,10 @@ const Login = () => {
             toast.error(resp['msg'], { toastId: dataId })
             return;
         }
-        console.log(resp['data']);
+        const { accessToken, refreshToken } = resp['data']
+        localStorage.setItem('user', JSON.stringify({ accessToken, refreshToken }))
+        dispatch(userLogin({ accessToken, refreshToken }));
+        nav('/')
         toast.success(resp['msg'])
     }
 
