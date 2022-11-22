@@ -22,6 +22,8 @@
   --b-radius: 15px;
 }
 
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -42,6 +44,11 @@ code {
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+  scroll-behavior: smooth;
+}
+::selection{
+  background-color: #3b8d3f;
+  color: var(--green-50);
 }
 
 .main-area-heading {
