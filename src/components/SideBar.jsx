@@ -21,13 +21,13 @@ const SideBar = () => {
             </div>
             <ul className='tab-list'>
                 {sidebarData.map((e) => {
-                    return <NavLink to={e.path} className={'listItem'}
+                    return <NavLink key={e.id} to={e.path} className={'listItem'}
                         style={
                             title === e.name
                                 ? { boxShadow: "1px 1px 3px #265b2998", color: "#265b29", }
                                 : {}
                         }
-                    >
+                     >
 
                         <p>
                             <e.icon />
