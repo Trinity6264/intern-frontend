@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CustomTextInput from '../../../../components/dashboard/CustomTextInput';
-import { selectFormFive, updateFormFive } from '../../../../features/dashboard/FormIRB5Slice';
+import { postFormFive, selectFormFive, updateFormFive } from '../../../../features/dashboard/FormIRB5Slice';
 import irb5FormData from '../../../../helper/form_irb5_data';
 const FORM_IRB5_TextFiled = () => {
 
@@ -31,7 +31,7 @@ const FORM_IRB5_TextFiled = () => {
 
     // Fetching data
     useEffect(() => {
-        if(formFiveData.status === 'loaded' && !formFiveData['data'] ) return;
+        if (formFiveData.status === 'loaded' && !formFiveData['data']) return;
         if (formFiveData.status === 'loaded') {
 
             console.log('dsljjlds');
@@ -74,11 +74,32 @@ const FORM_IRB5_TextFiled = () => {
         nav('/', { replace: true })
         toast.success(resp['msg'])
     }
+    const submitForm = async () => {
+        const toastId = 1;
+        const dataId = 2;
+        toast.loading('Submitting please wait...', { toastId })
+        setLoading(true)
+        const resp = await disPatch(postFormFive({
+            'date': date,
+            'academyYear': academyYear, 'col1': Col_1, 'col2': Col_2, 'col3': Col_3, 'col4': Col_4, 'col5': Col_5, 'col6': Col_6, 'col7': Col_7, 'col8': Col_8
+        })).unwrap()
+        setLoading(false)
+        toast.dismiss(toastId)
+        if (resp['status'] === false) {
+            toast.error(resp['msg'], { toastId: dataId })
+            return;
+        }
+        nav('/', { replace: true })
+        toast.success(resp['msg'])
+    }
 
     const onSubmit = (e) => {
         e.preventDefault();
-
-        updateForm()
+        if (update) {
+            updateForm()
+            return;
+        }
+        submitForm()
 
     }
 
@@ -154,7 +175,7 @@ const FORM_IRB5_TextFiled = () => {
                             <CustomTextInput htmlFor={irb5FormData[7].labelFor} id={irb5FormData[7].inputID} label={irb5FormData[7].label} name={irb5FormData[7].inputName} value={Col_8} onChange={e => setCol8(e.target.value)} />
 
                             {isLoading ? <Spinner /> : <button onClick={onSubmit} type="submit" className="btn btn-success mb-3">
-                                {update ? 'Update Form IRB5': 'Submit Form IRB5'}
+                                {update ? 'Update Form IRB5' : 'Submit Form IRB5'}
                             </button>}
                         </ol>
                     </form>

@@ -3,6 +3,7 @@ import { axiosInstance } from "../../api/axios_api";
 
 const initialState = {
     updateFormFive: { status: 'idle' },
+    postFormFive: { status: 'idle', data: null, msg: '' },
     formFive: { status: 'idle', data: null, msg: '' },
 }
 
@@ -11,6 +12,20 @@ export const fetchFormFive = createAsyncThunk('form/five', async () => {
         const token = localStorage.getItem("user");
         const { accessToken } = JSON.parse(token);
         const res = await axiosInstance.get('form5/formId', {
+            headers: {
+                'access_token': `Bearer ${accessToken}`,
+            }
+        })
+        return res.data;
+    } catch (error) {
+        return error?.response?.data;
+    }
+})
+export const postFormFive = createAsyncThunk('form/five/post', async (data) => {
+    try {
+        const token = localStorage.getItem("user");
+        const { accessToken } = JSON.parse(token);
+        const res = await axiosInstance.post('form5/', { ...data }, {
             headers: {
                 'access_token': `Bearer ${accessToken}`,
             }
@@ -51,11 +66,21 @@ const formIRB5Slice = createSlice({
             })
             .addCase(updateFormFive.fulfilled, (state, action) => {
                 const { data } = action.payload;
-                // state.formTwo.data = data[0]
             })
+            .addCase(postFormFive.fulfilled, (state, action) => {
+                state.postFormFive.status = 'posted'
+            })
+            .addCase(postFormFive.pending, (state, action) => {
+                state.postFormFive.status = 'loading'
+            })
+            .addCase(postFormFive.rejected, (state, action) => {
+                state.postFormFive.status = 'failed'
+            })
+            
     }
 })
 export const selectFormFive = (state) => state.form5.formFive;
+export const postFormFiveState = (state) => state.form5.postFormFive;
 export default formIRB5Slice.reducer;
 
 
