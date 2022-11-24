@@ -1,6 +1,7 @@
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CustomLoadingComponent from "../../../components/dashboard/CustomLoadingComponent";
 import { fetchFormOne, selectFormOne } from "../../../features/dashboard/dashboardSlice";
 
 import FORM_IRB1_TextFiled from "./components/FORM_IRB1_TextFiled";
@@ -17,7 +18,7 @@ const FormIRB1 = () => {
   
 
   return (
-    formOneData.status === 'loading' ? <p>Loading</p > : <FORM_IRB1_TextFiled formData={formOneData['data']} />
+    formOneData.status === 'loading' ? <CustomLoadingComponent/>  : <FORM_IRB1_TextFiled formData={formOneData['data']} />
   );
 }
 

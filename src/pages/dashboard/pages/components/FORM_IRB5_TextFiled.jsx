@@ -88,7 +88,7 @@ const FORM_IRB5_TextFiled = () => {
                         </div>
                     </div>
                 </div>
-                {/* --------End of intern detals-------- */}
+                {/* --------End of intern details-------- */}
                 <hr className="mb-5" />
                 <div className="form-section">
                     <form action="/student/irb1" method="post">
