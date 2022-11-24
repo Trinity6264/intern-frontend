@@ -37,7 +37,9 @@ const FORM_IRB2_TextFiled = () => {
 
     // Fetching data
     useEffect(() => {
-        if (formTwoData['data'] === null) return;
+        if(formTwoData.status === 'loaded' && !formTwoData['data'] ) return;
+
+        if (formTwoData.status === 'loaded') {
 
         setUpdate(true)
         setCalendarDate(new Date(formTwoData['data']['Date']) ?? '')
@@ -56,6 +58,7 @@ const FORM_IRB2_TextFiled = () => {
         setCol8(formTwoData['data']['Col_8'] ?? '')
         setCol9(formTwoData['data']['Col_9'] ?? '')
         setCol10(formTwoData['data']['Col_10'] ?? '')
+        }
     }, [formTwoData])
 
 

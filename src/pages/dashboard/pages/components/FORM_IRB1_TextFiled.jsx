@@ -50,8 +50,9 @@ const FORM_IRB1_TextFiled = () => {
         updateForm()
     }
     useEffect(() => {
-        if (formOneData['data'] === null) return;
-        console.log(formOneData);
+        if(formOneData.status === 'loaded' && !formOneData['data'] ) return;
+        if (formOneData.status === 'loaded') {
+
         setUpdate(true)
         setCol1(formOneData['data']['Col_1'] ?? '')
         setCol2(formOneData['data']['Col_2'] ?? '')
@@ -61,6 +62,7 @@ const FORM_IRB1_TextFiled = () => {
         setCol6(formOneData['data']['Col_6'] ?? '')
         setCol7(formOneData['data']['Col_7'] ?? '')
         setCol8(formOneData['data']['Col_8'] ?? '')
+        }
     }, [formOneData])
 
 

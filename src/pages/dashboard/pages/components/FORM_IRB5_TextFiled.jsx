@@ -31,20 +31,25 @@ const FORM_IRB5_TextFiled = () => {
 
     // Fetching data
     useEffect(() => {
-        if (formFiveData['data'] === null) return;
+        if(formFiveData.status === 'loaded' && !formFiveData['data'] ) return;
+        if (formFiveData.status === 'loaded') {
 
-        setUpdate(true)
-        setCalendarDate(new Date(formFiveData['data']['Date']) ?? '')
-        setDate((formFiveData['data']['Date']).split('T')[0] ?? '')
-        setAcademyYear(formFiveData['data']['Academic_Year'] ?? '')
-        setCol1(formFiveData['data']['Col_1'] ?? '')
-        setCol2(formFiveData['data']['Col_2'] ?? '')
-        setCol3(formFiveData['data']['Col_3'] ?? '')
-        setCol4(formFiveData['data']['Col_4'] ?? '')
-        setCol5(formFiveData['data']['Col_5'] ?? '')
-        setCol6(formFiveData['data']['Col_6'] ?? '')
-        setCol7(formFiveData['data']['Col_7'] ?? '')
-        setCol8(formFiveData['data']['Col_8'] ?? '')
+            console.log('dsljjlds');
+            if (formFiveData['data'] !== null) {
+                setUpdate(true)
+                setCalendarDate(new Date(formFiveData['data']['Date']) ?? '')
+                setDate((formFiveData['data']['Date']).split('T')[0] ?? '')
+                setAcademyYear(formFiveData['data']['Academic_Year'] ?? '')
+                setCol1(formFiveData['data']['Col_1'] ?? '')
+                setCol2(formFiveData['data']['Col_2'] ?? '')
+                setCol3(formFiveData['data']['Col_3'] ?? '')
+                setCol4(formFiveData['data']['Col_4'] ?? '')
+                setCol5(formFiveData['data']['Col_5'] ?? '')
+                setCol6(formFiveData['data']['Col_6'] ?? '')
+                setCol7(formFiveData['data']['Col_7'] ?? '')
+                setCol8(formFiveData['data']['Col_8'] ?? '')
+            }
+        }
 
     }, [formFiveData])
 
@@ -149,7 +154,7 @@ const FORM_IRB5_TextFiled = () => {
                             <CustomTextInput htmlFor={irb5FormData[7].labelFor} id={irb5FormData[7].inputID} label={irb5FormData[7].label} name={irb5FormData[7].inputName} value={Col_8} onChange={e => setCol8(e.target.value)} />
 
                             {isLoading ? <Spinner /> : <button onClick={onSubmit} type="submit" className="btn btn-success mb-3">
-                                Submit Form IRB2
+                                {update ? 'Update Form IRB5': 'Submit Form IRB5'}
                             </button>}
                         </ol>
                     </form>

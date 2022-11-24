@@ -39,6 +39,17 @@
   left: 70px;
 }
 
+.info-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.info-wrapper h5{
+  text-overflow: ellipsis;
+  text-align: justify;
+}
+
 .tab-list {
   display: flex;
   flex-direction: column;
