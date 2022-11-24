@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react'
+import { Spinner } from 'react-bootstrap';
 import ReactDatePicker from "react-datepicker";
 import { HiOutlineDocumentText } from "react-icons/hi";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import CustomTextInput from '../../../../components/dashboard/CustomTextInput';
-import { selectFormFive } from '../../../../features/dashboard/FormIRB5Slice';
+import { selectFormFive, updateFormFive } from '../../../../features/dashboard/FormIRB5Slice';
 import irb5FormData from '../../../../helper/form_irb5_data';
 const FORM_IRB5_TextFiled = () => {
-    const [calendarDate, setCalendarDate] = useState(null);
 
-    const [date, setDate] = useState("");
+    const nav = useNavigate()
+    const disPatch = useDispatch()
+    const [isLoading, setLoading] = useState(false);
+
     const [update, setUpdate] = useState(false);
+    const [calendarDate, setCalendarDate] = useState(null);
+    const [date, setDate] = useState("");
     const [academyYear, setAcademyYear] = useState("");
     const [Col_1, setCol1] = useState("");
     const [Col_2, setCol2] = useState("");
@@ -42,6 +49,35 @@ const FORM_IRB5_TextFiled = () => {
     }, [formFiveData])
 
 
+
+    const updateForm = async () => {
+        const toastId = 1;
+        const dataId = 2;
+        toast.loading('Please Wait...', { toastId })
+        setLoading(true)
+        const resp = await disPatch(updateFormFive({
+            'date': date,
+            'academyYear': academyYear, 'col1': Col_1, 'col2': Col_2, 'col3': Col_3, 'col4': Col_4, 'col5': Col_5, 'col6': Col_6, 'col7': Col_7, 'col8': Col_8
+        })).unwrap()
+        setLoading(false)
+        console.log(resp);
+        toast.dismiss(toastId)
+        if (resp['status'] === false) {
+            toast.error(resp['msg'], { toastId: dataId })
+            return;
+        }
+        nav('/', { replace: true })
+        toast.success(resp['msg'])
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        updateForm()
+
+    }
+
+
     return (
         <>
             <div className="form__top-background" />
@@ -54,7 +90,7 @@ const FORM_IRB5_TextFiled = () => {
                 <div className="mb-5">
                     <div className="row">
                         {/* It's likely we would get the Course from the database */}
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-6 mb-1">
                             <label htmlFor="academyYear">Academic Year</label>
                             <input
                                 type="text"
@@ -65,7 +101,7 @@ const FORM_IRB5_TextFiled = () => {
                                 onChange={(e) => setAcademyYear(e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-md-6 mb-3">
+                        <div className="form-group col-md-6 mb-1">
                             {/* But for the date we would be making the user make the changes */}
                             <label htmlFor="date">Date</label>
                             <ReactDatePicker
@@ -91,7 +127,7 @@ const FORM_IRB5_TextFiled = () => {
                 {/* --------End of intern details-------- */}
                 <hr className="mb-5" />
                 <div className="form-section">
-                    <form action="/student/irb1" method="post">
+                    <form>
                         <legend className="mb-4">
                             Sample Reflection Analysis Questions
                         </legend>
@@ -112,9 +148,9 @@ const FORM_IRB5_TextFiled = () => {
 
                             <CustomTextInput htmlFor={irb5FormData[7].labelFor} id={irb5FormData[7].inputID} label={irb5FormData[7].label} name={irb5FormData[7].inputName} value={Col_8} onChange={e => setCol8(e.target.value)} />
 
-                            <button type="submit" className="btn btn-success mb-3">
+                            {isLoading ? <Spinner /> : <button onClick={onSubmit} type="submit" className="btn btn-success mb-3">
                                 Submit Form IRB2
-                            </button>
+                            </button>}
                         </ol>
                     </form>
                 </div>
