@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react'
 import irb1FormData from "../../../../helper/form_irb1_data";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFormOne, updateFormOne } from "../../../../features/dashboard/dashboardSlice";
+import { selectFormOne, updateFormOne } from "../../../../features/dashboard/FORMIRB1Slice";
 import CustomTextInput from '../../../../components/dashboard/CustomTextInput';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 const FORM_IRB1_TextFiled = () => {
     const nav = useNavigate()
     const disPatch = useDispatch()
     const formOneData = useSelector(selectFormOne)
+
+
+
+
+    const [isLoading, setLoading] = useState(false);
     const [Col_1, setCol1] = useState();
     const [isUpdate, setUpdate] = useState(false);
     const [Col_2, setCol2] = useState();
@@ -25,8 +31,9 @@ const FORM_IRB1_TextFiled = () => {
         const toastId = 1;
         const dataId = 2;
         toast.loading('Please Wait...', { toastId })
+        setLoading(true)
         const resp = await disPatch(updateFormOne({ 'col1': Col_1, 'col2': Col_2, 'col3': Col_3, 'col4': Col_4, 'col5': Col_5, 'col6': Col_6, 'col7': Col_7, 'col8': Col_8 })).unwrap()
-        console.log(resp);
+        setLoading(false)
         toast.dismiss(toastId)
         if (resp['status'] === false) {
             toast.error(resp['msg'], { toastId: dataId })
@@ -100,9 +107,9 @@ const FORM_IRB1_TextFiled = () => {
                             <CustomTextInput htmlFor={irb1FormData[5].labelFor} id={irb1FormData[5].inputID} label={irb1FormData[5].label} name={irb1FormData[5].inputName} value={Col_6} onChange={e => setCol6(e.target.value)} />
                             <CustomTextInput htmlFor={irb1FormData[6].labelFor} id={irb1FormData[6].inputID} label={irb1FormData[6].label} name={irb1FormData[6].inputName} value={Col_7} onChange={e => setCol7(e.target.value)} />
                             <CustomTextInput htmlFor={irb1FormData[7].labelFor} id={irb1FormData[7].inputID} label={irb1FormData[7].label} name={irb1FormData[7].inputName} value={Col_8} onChange={e => setCol8(e.target.value)} />
-                            <button onClick={onSubmit} type="submit" className="btn btn-success mb-3">
+                            {isLoading ? <Spinner/> :<button onClick={onSubmit} type="submit" className="btn btn-success mb-3">
                                 {isUpdate ? 'Update Form IRB1' : 'Submit Form IRB1'}
-                            </button>
+                            </button>}
                         </ol>
                     </form>
                 </div>

@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CustomLoadingComponent from "../../../components/dashboard/CustomLoadingComponent";
-import { fetchFormOne, selectFormOne } from "../../../features/dashboard/dashboardSlice";
+import { fetchFormOne, selectFormOne } from "../../../features/dashboard/FORMIRB1Slice";
 
 import FORM_IRB1_TextFiled from "./components/FORM_IRB1_TextFiled";
 import './formStyle.css'
