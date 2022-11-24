@@ -1,10 +1,19 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
+
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFormFive, selectFormFive } from "../../../features/dashboard/FormIRB5Slice";
 import FORM_IRB5_TextFiled from "./components/FORM_IRB5_TextFiled";
 
 const FormIRB5 = () => {
+    const formFiveData = useSelector(selectFormFive)
+    const disPatch = useDispatch()
+  
+    useEffect(() => {
+      disPatch(fetchFormFive()).unwrap()
+    }, [disPatch])
+  
     return (
-        <FORM_IRB5_TextFiled/>
+      formFiveData.status === 'loading' ? <p>Loading</p > : <FORM_IRB5_TextFiled />
     );
 }
 

@@ -42,12 +42,12 @@ const formIRB5Slice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchFormFive.pending, (state, action) => {
-            state.formTwo.status = 'loading'
+            state.formFive.status = 'loading'
         })
             .addCase(fetchFormFive.fulfilled, (state, action) => {
-                state.formTwo.status = 'loaded'
+                state.formFive.status = 'loaded'
                 const { data } = action.payload;
-                state.formTwo.data = data[0]
+                state.formFive.data = data[0]
             })
             .addCase(updateFormFive.fulfilled, (state, action) => {
                 const { data } = action.payload;
@@ -55,7 +55,7 @@ const formIRB5Slice = createSlice({
             })
     }
 })
-export const selectFormTwo = (state) => state.form5.formFive;
+export const selectFormFive = (state) => state.form5.formFive;
 export default formIRB5Slice.reducer;
 
 
