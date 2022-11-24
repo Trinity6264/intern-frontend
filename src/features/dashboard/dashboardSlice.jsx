@@ -4,7 +4,6 @@ import { axiosInstance } from "../../api/axios_api";
 const initialState = {
     updateFormOne: { status: 'idle' },
     formOne: { status: 'idle', data: null, msg: '' },
-    formTwo: null,
     formFive: null,
     userInfo: null
 }
@@ -46,20 +45,7 @@ export const updateFormOne = createAsyncThunk('form/one/update', async (data) =>
 })
 
 // form two slice
-export const fetchFormTwo = createAsyncThunk('form/two', async () => {
-    try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.get('form2/formId', {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            }
-        })
-        return res.data;
-    } catch (error) {
-        return error?.response?.data;
-    }
-})
+
 export const fetchFormFive = createAsyncThunk('form/five', async () => {
     try {
         const token = localStorage.getItem("user");
@@ -80,7 +66,6 @@ const dashboardSlice = createSlice({
     initialState,
     reducers: {
         getFormOne: (state, action) => { },
-        getFormTwo: (state, action) => { },
         getFormFive: (state, action) => { }
     },
     extraReducers: (builder) => {
@@ -108,21 +93,15 @@ const dashboardSlice = createSlice({
                 state.updateFormOne.status = 'Failed'
             })
 
-            .addCase(fetchFormTwo.fulfilled, (state, action) => {
-                const { data } = action.payload;
-                state.formTwo = data[0]
-
-            })
 
             .addCase(fetchFormFive.fulfilled, (state, action) => {
                 const { data } = action.payload;
                 state.formFive = data[0]
-                console.log('paltFive', data[0]);
             })
     }
 })
 
 export const selectFormOne = (state) => state.dashboard.formOne;
 
-export const { getFormOne, getFormTwo, getFormFive } = dashboardSlice.actions;
+export const { getFormOne, getFormFive } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

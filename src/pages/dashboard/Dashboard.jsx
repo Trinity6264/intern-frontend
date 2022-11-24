@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import CustomHeader from '../../components/CustomHeader'
 import SecondSectionAfterHeading from '../../components/dashboard/SecondSectionAfterHeading'
 import SectionAfterHeading01 from '../../components/dashboard/SectionOne'
-import { fetchFormTwo,fetchFormFive } from '../../features/dashboard/dashboardSlice'
+import { fetchFormFive } from '../../features/dashboard/dashboardSlice'
 import './DashbaordStyle.css'
 
 const Dashboard = () => {
@@ -12,10 +12,8 @@ const Dashboard = () => {
   
 
   useEffect(() => {
-    // dispatch(fetchFormOne()).unwrap()
-    dispatch(fetchFormTwo()).unwrap()
     dispatch(fetchFormFive()).unwrap()
-  }, [])
+  }, [dispatch])
 
 
   return (
