@@ -47,7 +47,7 @@
 }
 .info-wrapper h5{
   text-overflow: ellipsis;
-  text-align: justify;
+  text-align: center;
 }
 
 .tab-list {
