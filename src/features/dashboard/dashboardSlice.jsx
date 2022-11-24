@@ -44,30 +44,14 @@ export const updateFormOne = createAsyncThunk('form/one/update', async (data) =>
     }
 })
 
-// form two slice
 
-export const fetchFormFive = createAsyncThunk('form/five', async () => {
-    try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.get('form5/formId', {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            }
-        })
-        return res.data;
-    } catch (error) {
-        return error?.response?.data;
-    }
-})
+
+
 
 const dashboardSlice = createSlice({
     name: 'dashboard',
     initialState,
-    reducers: {
-        getFormOne: (state, action) => { },
-        getFormFive: (state, action) => { }
-    },
+    reducers: {},
     extraReducers: (builder) => {
 
         builder.addCase(fetchFormOne.pending, (state, action) => {
@@ -93,11 +77,6 @@ const dashboardSlice = createSlice({
                 state.updateFormOne.status = 'Failed'
             })
 
-
-            .addCase(fetchFormFive.fulfilled, (state, action) => {
-                const { data } = action.payload;
-                state.formFive = data[0]
-            })
     }
 })
 

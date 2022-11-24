@@ -2,15 +2,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../api/axios_api";
 
 const initialState = {
-    updateFormTwo: { status: 'idle' },
-    formTwo: { status: 'idle', data: null, msg: '' },
+    updateFormFive: { status: 'idle' },
+    formFive: { status: 'idle', data: null, msg: '' },
 }
 
-export const fetchFormTwo = createAsyncThunk('form/two', async () => {
+export const fetchFormFive = createAsyncThunk('form/five', async () => {
     try {
         const token = localStorage.getItem("user");
         const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.get('form2/formId', {
+        const res = await axiosInstance.get('form5/formId', {
             headers: {
                 'access_token': `Bearer ${accessToken}`,
             }
@@ -20,11 +20,11 @@ export const fetchFormTwo = createAsyncThunk('form/two', async () => {
         return error?.response?.data;
     }
 })
-export const updateFormTwo = createAsyncThunk('form/two/update', async (data) => {
+export const updateFormFive = createAsyncThunk('form/five/update', async (data) => {
     try {
         const token = localStorage.getItem("user");
         const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.patch('form2/', { ...data }, {
+        const res = await axiosInstance.patch('form5/', { ...data }, {
             headers: {
                 'access_token': `Bearer ${accessToken}`,
             }
@@ -36,27 +36,27 @@ export const updateFormTwo = createAsyncThunk('form/two/update', async (data) =>
 })
 
 
-const formIRB2Slice = createSlice({
-    name: 'form2',
+const formIRB5Slice = createSlice({
+    name: 'form5',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchFormTwo.pending, (state, action) => {
+        builder.addCase(fetchFormFive.pending, (state, action) => {
             state.formTwo.status = 'loading'
         })
-            .addCase(fetchFormTwo.fulfilled, (state, action) => {
+            .addCase(fetchFormFive.fulfilled, (state, action) => {
                 state.formTwo.status = 'loaded'
                 const { data } = action.payload;
                 state.formTwo.data = data[0]
             })
-            .addCase(updateFormTwo.fulfilled, (state, action) => {
+            .addCase(updateFormFive.fulfilled, (state, action) => {
                 const { data } = action.payload;
                 // state.formTwo.data = data[0]
             })
     }
 })
-export const selectFormTwo = (state) => state.form2.formTwo;
-export default formIRB2Slice.reducer;
+export const selectFormTwo = (state) => state.form5.formFive;
+export default formIRB5Slice.reducer;
 
 
 

@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from 'react'
+import { Spinner } from 'react-bootstrap'
 import ReactDatePicker from 'react-datepicker'
 import { HiOutlineDocumentText } from 'react-icons/hi'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import CustomTextInput from '../../../../components/dashboard/CustomTextInput'
-import { selectFormTwo } from '../../../../features/dashboard/FormIRB2Slice'
+import { selectFormTwo, updateFormTwo } from '../../../../features/dashboard/FormIRB2Slice'
 import irb2FormData from '../../../../helper/from_irb2_data'
 
 const FORM_IRB2_TextFiled = () => {
     const nav = useNavigate()
     const disPatch = useDispatch()
     const formTwoData = useSelector(selectFormTwo)
+
     const [isUpdate, setUpdate] = useState(false);
+    const [isLoading, setLoading] = useState(false);
 
     const [calendarDate, setCalendarDate] = useState(null);
+    const [classTaught, setClassTaught] = useState("");
     const [date, setDate] = useState("");
-    const [Class, setClassTaught] = useState("");
-    const [Subject, setSubject] = useState("");
-    const [Topic, setTopic] = useState("");
+    const [subject, setSubject] = useState("");
+    const [topic, setTopic] = useState("");
     const [academicYear, setAcademyYear] = useState("");
 
     const [Col_1, setCol1] = useState();
@@ -34,12 +38,14 @@ const FORM_IRB2_TextFiled = () => {
     // Fetching data
     useEffect(() => {
         if (formTwoData['data'] === null) return;
-        
-
 
         setUpdate(true)
-        
-        setClassTaught(formTwoData['data'][''])
+        setCalendarDate(new Date(formTwoData['data']['Date']) ?? '')
+        setDate((formTwoData['data']['Date']).split('T')[0] ?? '')
+        setClassTaught(formTwoData['data']['Class'] ?? '')
+        setSubject(formTwoData['data']['Subject'] ?? '')
+        setAcademyYear(formTwoData['data']['Academic_Year'] ?? '')
+        setTopic(formTwoData['data']['Topic'] ?? '')
         setCol1(formTwoData['data']['Col_1'] ?? '')
         setCol2(formTwoData['data']['Col_2'] ?? '')
         setCol3(formTwoData['data']['Col_3'] ?? '')
@@ -52,6 +58,33 @@ const FORM_IRB2_TextFiled = () => {
         setCol10(formTwoData['data']['Col_10'] ?? '')
     }, [formTwoData])
 
+
+    const updateForm = async () => {
+        const toastId = 1;
+        const dataId = 2;
+        toast.loading('Please Wait...', { toastId })
+        setLoading(true)
+        const resp = await disPatch(updateFormTwo({
+            'date': date, 'classTaught': classTaught, 'subject': subject,
+            'topic': topic, 'academyYear': academicYear, 'col1': Col_1, 'col2': Col_2, 'col3': Col_3, 'col4': Col_4, 'col5': Col_5, 'col6': Col_6, 'col7': Col_7, 'col8': Col_8, 'col9': Col_9, 'col10': Col_10
+        })).unwrap()
+        setLoading(false)
+        console.log(resp);
+        toast.dismiss(toastId)
+        if (resp['status'] === false) {
+            toast.error(resp['msg'], { toastId: dataId })
+            return;
+        }
+        nav('/', { replace: true })
+        toast.success(resp['msg'])
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        updateForm()
+
+    }
 
     return (
         <>
@@ -73,80 +106,87 @@ const FORM_IRB2_TextFiled = () => {
                 </div>
                 <hr className="mb-5" />
                 <div className="form-section">
-                    <form action="/student/irb1" method="post">
+                    <form>
                         <legend className="mb-4">
                             Post-Observation Reflection For Student Teacher
                         </legend>
-                        <div className="mb-5">
-                            <div className="row">
-                                <div className="form-group col-md-6 mb-3">
-                                    <label htmlFor="subject">Subject</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="subject"
-                                        placeholder="Subject"
-                                        onChange={(e) => setSubject(e.target.value)}
-                                    />
-                                </div>
-                                <div className="form-group mb-3 col-md-6">
-                                    <label htmlFor="topic">Topic</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="topic"
-                                        placeholder="Topic"
-                                        onChange={(e) => setTopic(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="form-group col-md-6 mb-3">
-                                    <label htmlFor="date">Date</label>
-                                    <ReactDatePicker
-                                        id="date"
-                                        selected={calendarDate}
-                                        onChange={(onChangeDate) => {
-                                            const formattedDate = `${onChangeDate
-                                                .getFullYear()
-                                                .toString()}-${(
-                                                    onChangeDate.getMonth() + 1
-                                                ).toString()}-${onChangeDate.getDate()}`;
-                                            setDate(`${formattedDate}`);
-                                            setCalendarDate(onChangeDate);
-                                        }}
-                                        className="form-control"
-                                        isClearable
-                                        placeholderText="Select Date"
-                                        closeOnScroll
-                                    />
-                                </div>
-                                <div className="form-group mb-3 col-md-6">
-                                    <label htmlFor="class">Class</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="class"
-                                        placeholder="Class"
-                                        onChange={(e) => setClassTaught(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="form-group mb-3 col-md-6">
-                                    <label htmlFor="academicYear">Academic Year</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="academicYear"
-                                        placeholder="Class"
-                                        onChange={(e) => setAcademyYear(e.target.value)}
-                                    />
-                                </div>
-                               
-                            </div>
-                        </div>
+
                         <ol className="form-list">
+
+                            <div className="mb-5">
+                                <div className="row">
+                                    <div className="form-group col-md-6 mb-3">
+                                        <label htmlFor="subject">Subject</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="subject"
+                                            placeholder="Subject"
+                                            value={subject}
+                                            onChange={(e) => setSubject(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group mb-3 col-md-6">
+                                        <label htmlFor="topic">Topic</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="topic"
+                                            value={topic}
+                                            placeholder="Topic"
+                                            onChange={(e) => setTopic(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="form-group col-md-6 mb-3">
+                                        <label htmlFor="date">Date</label>
+                                        <ReactDatePicker
+                                            id="date"
+                                            selected={calendarDate}
+                                            onChange={(onChangeDate) => {
+                                                const formattedDate = `${onChangeDate
+                                                    .getFullYear()
+                                                    .toString()}-${(
+                                                        onChangeDate.getMonth() + 1
+                                                    ).toString()}-${onChangeDate.getDate()}`;
+                                                setDate(`${formattedDate}`);
+                                                setCalendarDate(onChangeDate);
+                                            }}
+                                            className="form-control"
+                                            isClearable
+                                            placeholderText="Select Date"
+                                            closeOnScroll
+                                        />
+                                    </div>
+                                    <div className="form-group mb-3 col-md-6">
+                                        <label htmlFor="class">Class</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="class"
+                                            value={classTaught}
+                                            placeholder="Class"
+                                            onChange={(e) => setClassTaught(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="form-group mb-3 col-md-6">
+                                        <label htmlFor="academicYear">Academic Year</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="academicYear"
+                                            placeholder="Class"
+                                            value={academicYear}
+                                            onChange={(e) => setAcademyYear(e.target.value)}
+                                        />
+                                    </div>
+
+                                </div>
+                            </div>
+
                             <CustomTextInput htmlFor={irb2FormData[0].labelFor} id={irb2FormData[0].inputID} label={irb2FormData[0].label} name={irb2FormData[0].inputName} value={Col_1} onChange={e => setCol1(e.target.value)} />
 
                             <CustomTextInput htmlFor={irb2FormData[1].labelFor} id={irb2FormData[1].inputID} label={irb2FormData[1].label} name={irb2FormData[1].inputName} value={Col_2} onChange={e => setCol2(e.target.value)} />
@@ -166,9 +206,10 @@ const FORM_IRB2_TextFiled = () => {
                             <CustomTextInput htmlFor={irb2FormData[8].labelFor} id={irb2FormData[8].inputID} label={irb2FormData[8].label} name={irb2FormData[8].inputName} value={Col_9} onChange={e => setCol9(e.target.value)} />
 
                             <CustomTextInput htmlFor={irb2FormData[9].labelFor} id={irb2FormData[9].inputID} label={irb2FormData[9].label} name={irb2FormData[9].inputName} value={Col_10} onChange={e => setCol10(e.target.value)} />
-                            <button type="submit" className="btn btn-success mb-3">
-                                Submit Form IRB2
-                            </button>
+                            {isLoading ? <Spinner style={{ color: 'green' }} /> : <button onClick={onSubmit} type="submit" className="btn btn-success mb-3">
+                                {isUpdate ? 'Update Form IRB2' : 'Submit Form IRB2'}
+                            </button>}
+
                         </ol>
                     </form>
                 </div>

@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -19,14 +19,14 @@ function App() {
     <div className="App">
       <ToastContainer />
       <Routes>
-        
+
         <Route path="/" element={<Layout />}>
           {/* Dashboard layout  */}
-          <Route path='/'  element={<DashboardLayout/>}> 
-            <Route path="/" index   element={<Dashboard />} />
-            <Route path="/form1"    element={<FormIRB1 />} />
-            <Route path="/form2"    element={<FormIRB2 />} />
-            <Route path="/form5"    element={<FormIRB5 />} />
+          <Route path='/' element={<DashboardLayout />}>
+            <Route path="/" index element={<Dashboard />} />
+            <Route path="/form1" element={<FormIRB1 />} />
+            <Route path="/form2" element={<FormIRB2 />} />
+            <Route path="/form5" element={<FormIRB5 />} />
           </Route>
         </Route>
         <Route path="/register" element={<Register />} />

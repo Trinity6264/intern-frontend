@@ -10,7 +10,6 @@ import { userLogin } from "./features/user/userSlice";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const creden = localStorage.getItem("user") || null;
-console.log(creden);
 if (creden) store.dispatch(userLogin(JSON.parse(creden)));
 
 root.render(

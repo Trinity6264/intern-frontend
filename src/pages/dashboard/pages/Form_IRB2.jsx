@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect } from "react";
-import { HiOutlineDocumentText } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFormTwo, selectFormTwo } from "../../../features/dashboard/FormIRB2Slice";
-import irb2FormData from "../../../helper/from_irb2_data";
 import FORM_IRB2_TextFiled from "./components/FORM_IRB2_TextFiled";
 
 const FormIRB2 = () => {
@@ -12,8 +10,7 @@ const FormIRB2 = () => {
 
   useEffect(() => {
     disPatch(fetchFormTwo()).unwrap()
-    console.log('Pz',formTwoData.status);
-  }, [])
+  }, [disPatch])
 
   return (
     formTwoData.status === 'loading' ? <p>Loading</p > : <FORM_IRB2_TextFiled />
