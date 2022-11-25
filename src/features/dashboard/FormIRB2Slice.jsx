@@ -8,13 +8,8 @@ const initialState = {
 
 export const fetchFormTwo = createAsyncThunk('form/two', async () => {
     try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.get('form2/formId', {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            }
-        })
+
+        const res = await axiosInstance.get('form2/formId')
         return res.data;
     } catch (error) {
         return error?.response?.data;
@@ -22,13 +17,7 @@ export const fetchFormTwo = createAsyncThunk('form/two', async () => {
 })
 export const updateFormTwo = createAsyncThunk('form/two/update', async (data) => {
     try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.patch('form2/', { ...data }, {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            }
-        })
+        const res = await axiosInstance.patch('form2/', { ...data })
         return res.data;
     } catch (error) {
         return error?.response?.data;
@@ -50,8 +39,8 @@ const formIRB2Slice = createSlice({
                 state.formTwo.data = data[0]
             })
             .addCase(updateFormTwo.fulfilled, (state, action) => {
-                const { data } = action.payload;
-                // state.formTwo.data = data[0]
+                // const { data } = action.payload;
+                // // state.formTwo.data = data[0]
             })
     }
 })

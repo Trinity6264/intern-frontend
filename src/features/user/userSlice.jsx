@@ -10,13 +10,7 @@ const initialState = {
 
 export const getUser = createAsyncThunk('student/auth', async () => {
     try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.get('student/id', {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            },
-        })
+        const res = await axiosInstance.get('student/id')
         return res.data;
     } catch (error) {
         console.log(error);

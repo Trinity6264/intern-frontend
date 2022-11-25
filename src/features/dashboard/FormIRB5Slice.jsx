@@ -9,13 +9,7 @@ const initialState = {
 
 export const fetchFormFive = createAsyncThunk('form/five', async () => {
     try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.get('form5/formId', {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            }
-        })
+        const res = await axiosInstance.get('form5/formId')
         return res.data;
     } catch (error) {
         return error?.response?.data;
@@ -23,13 +17,7 @@ export const fetchFormFive = createAsyncThunk('form/five', async () => {
 })
 export const postFormFive = createAsyncThunk('form/five/post', async (data) => {
     try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.post('form5/', { ...data }, {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            }
-        })
+        const res = await axiosInstance.post('form5/', { ...data })
         return res.data;
     } catch (error) {
         return error?.response?.data;
@@ -37,13 +25,7 @@ export const postFormFive = createAsyncThunk('form/five/post', async (data) => {
 })
 export const updateFormFive = createAsyncThunk('form/five/update', async (data) => {
     try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.patch('form5/', { ...data }, {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            }
-        })
+        const res = await axiosInstance.patch('form5/', { ...data })
         return res.data;
     } catch (error) {
         return error?.response?.data;
@@ -65,7 +47,7 @@ const formIRB5Slice = createSlice({
                 state.formFive.data = data[0]
             })
             .addCase(updateFormFive.fulfilled, (state, action) => {
-                const { data } = action.payload;
+              
             })
             .addCase(postFormFive.fulfilled, (state, action) => {
                 state.postFormFive.status = 'posted'
@@ -76,7 +58,7 @@ const formIRB5Slice = createSlice({
             .addCase(postFormFive.rejected, (state, action) => {
                 state.postFormFive.status = 'failed'
             })
-            
+
     }
 })
 export const selectFormFive = (state) => state.form5.formFive;

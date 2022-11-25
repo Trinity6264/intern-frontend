@@ -12,13 +12,8 @@ const initialState = {
 // ? get form one
 export const fetchFormOne = createAsyncThunk('form/one', async () => {
     try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.get('form1/formId', {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            }
-        })
+    
+        const res = await axiosInstance.get('form1/formId')
         return res.data;
     } catch (error) {
         console.log(error);
@@ -28,13 +23,7 @@ export const fetchFormOne = createAsyncThunk('form/one', async () => {
 // ? get form one
 export const updateFormOne = createAsyncThunk('form/one/update', async (data) => {
     try {
-        const token = localStorage.getItem("user");
-        const { accessToken } = JSON.parse(token);
-        const res = await axiosInstance.patch('form1/', { ...data }, {
-            headers: {
-                'access_token': `Bearer ${accessToken}`,
-            },
-        })
+        const res = await axiosInstance.patch('form1/', { ...data })
         return res.data;
     } catch (error) {
         console.log(error);
