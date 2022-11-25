@@ -6,12 +6,15 @@ export const axiosInstance = axios.create({
   baseURL: "http://localhost:5000/api/v1/",
 });
 
+
+// Getting a new access token 
 axiosInstance.interceptors.request.use(async (req) => {
   const url = req.url;
   if (
     url.includes("login") ||
     url.includes("register") ||
     url.includes("verify") ||
+    url.includes("headmaster") ||
     url.includes("refreshToken")
   ) {
     return req;
@@ -32,7 +35,6 @@ axiosInstance.interceptors.request.use(async (req) => {
       token: refreshToken,
     }
   );
-  console.log('worked');
   if (response.status === 201) {
     const {
       data: { accessToken, refreshToken },

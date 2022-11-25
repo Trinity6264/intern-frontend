@@ -10,9 +10,8 @@ function PeopleInfoSquareCard({
 }) {
   return (
     <Col
-      className={`${
-        marginEnd ? "me-2" : ""
-      } supervisor-tab bg-light shadow  rounded-1`}
+      className={`${marginEnd ? "me-2" : ""
+        } supervisor-tab bg-light shadow  rounded-1`}
     >
       <div className="supervisor-tab__background-pic" />
       <div className="p-3 d-flex flex-column align-items-center">

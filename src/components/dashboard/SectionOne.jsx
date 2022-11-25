@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LinkWithIconAndFileSize from "./FilesDocumentTabs";
 import profileImage from "../../assets/imgs/SidePaneProfileImage.png";
 import PeopleInfoSquareCard from "./PeopleInfoSquareCard";
+import { useSelector } from "react-redux";
+import { headMasterInfo } from "../../features/user/headTeacherSlice";
 
 function SectionAfterHeading01() {
+    const headTeacher = useSelector(headMasterInfo)
+    const [headName, setHeadName] = useState('')
+
+    useEffect(() => {
+        if (headTeacher.status === 'loaded') {
+            const { Name } = headTeacher.data.data;
+            setHeadName(Name)
+        }
+     },[headTeacher])
+
     return (
         <Container className="section-after-heading01">
             <Row>
@@ -42,8 +54,8 @@ function SectionAfterHeading01() {
                 {/* Headteacher tab */}
                 <PeopleInfoSquareCard
                     imgSrc={profileImage}
-                    name="Headteacher name"
-                    title="Headteacher"
+                    name={headTeacher.status === 'loaded' ? headName  : ""}
+                    title="Headmaster"
                     marginEnd
                 />
                 {/* Supervisor tab */}
