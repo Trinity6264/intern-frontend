@@ -18,7 +18,6 @@ const SideBar = () => {
 
     useEffect(() => {
         if (resp['status'] === 'loaded') {
-            console.log(resp);
             const { data: { data }, status } = resp;
             const { Name, St_Id } = data
             setName(Name)
