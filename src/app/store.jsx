@@ -5,6 +5,7 @@ import FORMIRB1Slice from '../features/dashboard/FORMIRB1Slice'
 import FormIRB2Slice from '../features/dashboard/FormIRB2Slice'
 import FormIRB5Slice from '../features/dashboard/FormIRB5Slice'
 import headTeacherSlice from '../features/user/headTeacherSlice'
+import supervisorSlice from '../features/user/supervisorSlice'
 import userSlice from '../features/user/userSlice'
 
 
@@ -18,6 +19,7 @@ export const store = configureStore({
         form1: FORMIRB1Slice,
         form2: FormIRB2Slice,
         form5: FormIRB5Slice,
-        headMaster: headTeacherSlice
+        headMaster: headTeacherSlice,
+        supervisor: supervisorSlice
     },
 })

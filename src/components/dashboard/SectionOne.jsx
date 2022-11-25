@@ -6,9 +6,12 @@ import profileImage from "../../assets/imgs/SidePaneProfileImage.png";
 import PeopleInfoSquareCard from "./PeopleInfoSquareCard";
 import { useSelector } from "react-redux";
 import { headMasterInfo } from "../../features/user/headTeacherSlice";
+import { supervisorInfo } from "../../features/user/supervisorSlice";
 
 function SectionAfterHeading01() {
+    const supervisor = useSelector(supervisorInfo)
     const headTeacher = useSelector(headMasterInfo)
+    const [supervisorName, setSupervisorName] = useState('')
     const [headName, setHeadName] = useState('')
 
     useEffect(() => {
@@ -17,6 +20,12 @@ function SectionAfterHeading01() {
             setHeadName(Name)
         }
      },[headTeacher])
+    useEffect(() => {
+        if (supervisor.status === 'loaded') {
+            const { Name } = supervisor.data.data;
+            setSupervisorName(Name)
+        }
+     },[supervisor])
 
     return (
         <Container className="section-after-heading01">
@@ -61,7 +70,7 @@ function SectionAfterHeading01() {
                 {/* Supervisor tab */}
                 <PeopleInfoSquareCard
                     imgSrc={profileImage}
-                    name="Supervisor name"
+                    name={supervisor.status === 'loaded' ? supervisorName  : ""}
                     title="Supervisor"
                     marginEnd={false}
                 />
