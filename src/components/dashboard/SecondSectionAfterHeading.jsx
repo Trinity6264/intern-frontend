@@ -1,8 +1,21 @@
+import { useEffect, useState } from "react";
 import { Col, Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { mentorInfo } from "../../features/user/mentorSlice";
 import InfoCard from "./Infocard";
 
 
 function SecondSectionAfterHeading() {
+    const mentor = useSelector(mentorInfo)
+    const [mentorName, setMentorName] = useState('')
+
+    useEffect(() => {
+        if (mentor.status === 'loaded') {
+            const Name = mentor.data.data.Name;
+            setMentorName(Name)
+        }
+    }, [mentor])
+
     return (
         <Container className="section-after-heading02">
             <div className="first-div">
@@ -18,8 +31,9 @@ function SecondSectionAfterHeading() {
                             <div className="mentor-info">
                                 <div className="img-wrapper" />
                                 <div className="info-wrapper">
-                                    <p>Mentor Name</p>
-                                    <small>Mentor</small>
+                                    <p>{ mentorName }
+                                    </p>
+                                    <small>Mentor Name</small>
                                 </div>
                             </div>
                         </div>
