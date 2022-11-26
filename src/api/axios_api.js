@@ -15,6 +15,8 @@ axiosInstance.interceptors.request.use(async (req) => {
     url.includes("register") ||
     url.includes("verify") ||
     url.includes("headmaster") ||
+    url.includes("mentor") ||
+    url.includes("supervisor") ||
     url.includes("refreshToken")
   ) {
     return req;

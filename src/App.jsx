@@ -10,6 +10,7 @@ import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import FormIRB1 from "./pages/dashboard/pages/Form_IRB1";
 import FormIRB2 from "./pages/dashboard/pages/Form_IRB2";
 import FormIRB5 from "./pages/dashboard/pages/Form_IRB5";
+import Profile from "./pages/profile/Profile";
 
 
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/form2" element={<FormIRB2 />} />
             <Route path="/form5" element={<FormIRB5 />} />
           </Route>
+          <Route path="/profile" element={<Profile/>} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

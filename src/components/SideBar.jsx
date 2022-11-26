@@ -50,7 +50,7 @@ const SideBar = () => {
             </div>
             <ul className='tab-list'>
                 {sidebarData.map((e) => {
-                    return <NavLink key={e.id} to={e.path} className={'listItem'}
+                    return <NavLink onClick={()=> setTitle(e.name)} key={e.id} to={e.path} className={'listItem'}
                         style={
                             title === e.name
                                 ? { boxShadow: "1px 1px 3px #265b2998", color: "#265b29", }
@@ -66,7 +66,7 @@ const SideBar = () => {
                         </p>
 
                         <RiArrowRightSLine
-                            style={'Dashboard' === e.name ? { color: "#265b29" } : { color: "#fff" }}
+                            style={title === e.name ? { color: "#265b29" } : { color: "#fff" }}
                         />
                     </NavLink>
                 })}
