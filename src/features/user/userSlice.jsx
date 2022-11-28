@@ -36,14 +36,10 @@ const userSlice = createSlice({
             state.user = { accessToken, refreshToken }
             return state;
         },
-        getUserInfo: (state, action) => {
-            state.userInfo.data = action.payload;
-            return state;
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(getAllUsersInfo.pending, (state, action) => {
-            state.userInfo.status = 'loading';
+            state.allUsersInfo.status = 'loading';
         })
             .addCase(getAllUsersInfo.fulfilled, (state, action) => {
                 state.allUsersInfo.status = 'loaded';
@@ -123,8 +119,8 @@ const userSlice = createSlice({
                 return state
             })
             .addCase(getAllUsersInfo.rejected, (state, action) => {
-                state.userInfo.status = 'failed';
-                state.userInfo.msg = action?.error?.message;
+                state.allUsersInfo.status = 'failed';
+                state.allUsersInfo.msg = action?.error?.message;
                 return state
             })
     }
