@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { Col, Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { mentorInfo } from "../../features/user/mentorSlice";
+import { allInfoStatus, mentorInfos} from '../../features/user/userSlice';
 import InfoCard from "./Infocard";
 
 
-function SecondSectionAfterHeading() {
-    const mentor = useSelector(mentorInfo)
+const SecondSectionAfterHeading = ()=> {
+    const infoStatus = useSelector(allInfoStatus)
+    const mentor = useSelector(mentorInfos)
     const [mentorName, setMentorName] = useState('')
 
     useEffect(() => {
-        if (mentor.status === 'loaded') {
-            const Name = mentor.data.data.Name;
-            setMentorName(Name)
+        if (infoStatus === 'loaded') {
+            const {ment_name} = mentor;
+            setMentorName(ment_name)
         }
-    }, [mentor])
+    }, [infoStatus,mentor])
 
     return (
         <Container className="section-after-heading02">

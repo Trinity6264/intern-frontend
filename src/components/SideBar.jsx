@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import { RiArrowRightSLine, RiCloseFill } from 'react-icons/ri'
 import sidebarData from '../helper/Sidebar_data'
 import { useSelector } from 'react-redux'
-import { userInfo } from '../features/user/userSlice'
+import { allInfoStatus, studentInfo} from '../features/user/userSlice'
 import { Spinner } from 'react-bootstrap'
 
 
@@ -14,16 +14,16 @@ const SideBar = () => {
     const [title, setTitle] = useState('Dashboard')
     const [index, setIndex] = useState('')
     const [name, setName] = useState('')
-    const resp = useSelector(userInfo)
+    const infoStatus = useSelector(allInfoStatus)
+    const student = useSelector(studentInfo)
 
     useEffect(() => {
-        if (resp['status'] === 'loaded') {
-            const { data: { data }, status } = resp;
-            const { Name, St_Id } = data
-            setName(Name)
-            setIndex(St_Id)
+        if (infoStatus === 'loaded') {
+            const { std_index, std_Name } = student
+            setName( std_Name)
+            setIndex(std_index)
         }
-    }, [resp])
+    }, [infoStatus,student])
 
 
     return (
@@ -40,7 +40,7 @@ const SideBar = () => {
             </div>
             <div className="info-wrapper">
                 {
-                    resp['status'] === 'loading' ? <Spinner /> :
+                  infoStatus === 'loading' ? <Spinner /> :
                         <>
                             <h5>{name}</h5>
                             <small>{index}</small>

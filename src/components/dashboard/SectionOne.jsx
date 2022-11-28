@@ -5,27 +5,26 @@ import LinkWithIconAndFileSize from "./FilesDocumentTabs";
 import profileImage from "../../assets/imgs/SidePaneProfileImage.png";
 import PeopleInfoSquareCard from "./PeopleInfoSquareCard";
 import { useSelector } from "react-redux";
-import { headMasterInfo } from "../../features/user/headTeacherSlice";
-import { supervisorInfo } from "../../features/user/supervisorSlice";
+import { allInfoStatus, headMasterInfos, supervisorInfos } from "../../features/user/userSlice";
 
 function SectionAfterHeading01() {
-    const supervisor = useSelector(supervisorInfo)
-    const headTeacher = useSelector(headMasterInfo)
+    const infoStatus = useSelector(allInfoStatus)
+    const headMaster = useSelector(headMasterInfos)
+    const supervisor = useSelector(supervisorInfos)
+
+
+
     const [supervisorName, setSupervisorName] = useState('')
     const [headName, setHeadName] = useState('')
 
     useEffect(() => {
-        if (headTeacher.status === 'loaded') {
-            const { Name } = headTeacher.data.data;
-            setHeadName(Name)
+        if (infoStatus === 'loaded') {
+            const { head_name } = headMaster;
+            const { sup_name } = supervisor;
+            setHeadName(head_name)
+            setSupervisorName(sup_name)
         }
-     },[headTeacher])
-    useEffect(() => {
-        if (supervisor.status === 'loaded') {
-            const { Name } = supervisor.data.data;
-            setSupervisorName(Name)
-        }
-     },[supervisor])
+    }, [infoStatus, headMaster, supervisor])
 
     return (
         <Container className="section-after-heading01">
@@ -63,14 +62,14 @@ function SectionAfterHeading01() {
                 {/* Headteacher tab */}
                 <PeopleInfoSquareCard
                     imgSrc={profileImage}
-                    name={headTeacher.status === 'loaded' ? headName  : ""}
+                    name={infoStatus === 'loaded' ? headName : ""}
                     title="Headmaster"
                     marginEnd
                 />
                 {/* Supervisor tab */}
                 <PeopleInfoSquareCard
                     imgSrc={profileImage}
-                    name={supervisor.status === 'loaded' ? supervisorName  : ""}
+                    name={infoStatus === 'loaded' ? supervisorName : ""}
                     title="Supervisor"
                     marginEnd={false}
                 />
