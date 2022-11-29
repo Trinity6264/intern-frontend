@@ -1,3 +1,4 @@
+import React,{ useEffect }  from 'react'  
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,16 +12,24 @@ import FormIRB1 from "./pages/dashboard/pages/Form_IRB1";
 import FormIRB2 from "./pages/dashboard/pages/Form_IRB2";
 import FormIRB5 from "./pages/dashboard/pages/Form_IRB5";
 import Profile from "./pages/profile/Profile";
-
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllUsersInfo, isLoaded } from './features/user/userSlice';
 
 
 
 function App() {
+
+  const isLoadedState = useSelector(isLoaded)
+  const disPatch = useDispatch()
+  useEffect(() => {
+    if (isLoadedState) return;
+    disPatch(getAllUsersInfo()).unwrap()
+  }, [disPatch,isLoadedState])
+
   return (
     <div className="App">
       <ToastContainer />
       <Routes>
-
         <Route path="/" element={<Layout />}>
           {/* Dashboard layout  */}
           <Route path='/' element={<DashboardLayout />}>

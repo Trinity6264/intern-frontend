@@ -6,6 +6,7 @@ import profileImage from "../../assets/imgs/SidePaneProfileImage.png";
 import PeopleInfoSquareCard from "./PeopleInfoSquareCard";
 import { useSelector } from "react-redux";
 import { allInfoStatus, headMasterInfos, supervisorInfos } from "../../features/user/userSlice";
+import CustomModal from "../profile/custom_model";
 
 function SectionAfterHeading01() {
     const infoStatus = useSelector(allInfoStatus)
@@ -25,6 +26,14 @@ function SectionAfterHeading01() {
             setSupervisorName(sup_name)
         }
     }, [infoStatus, headMaster, supervisor])
+
+    const [open, setOpen] = useState(false)
+    const openHandle = () => {
+        setOpen(true);
+    }
+    const closeHandle = () => {
+        setOpen(false);
+    }
 
     return (
         <Container className="section-after-heading01">
@@ -65,6 +74,7 @@ function SectionAfterHeading01() {
                     name={infoStatus === 'loaded' ? headName : ""}
                     title="Headmaster"
                     marginEnd
+                    onTap={openHandle}
                 />
                 {/* Supervisor tab */}
                 <PeopleInfoSquareCard
@@ -72,7 +82,9 @@ function SectionAfterHeading01() {
                     name={infoStatus === 'loaded' ? supervisorName : ""}
                     title="Supervisor"
                     marginEnd={false}
+                    onTap={openHandle}
                 />
+                <CustomModal disMiss={setOpen} isShow={open}/>
             </Row>
         </Container>
     );

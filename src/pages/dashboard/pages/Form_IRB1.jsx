@@ -14,11 +14,11 @@ const FormIRB1 = () => {
 
   useEffect(() => {
     dispatch(fetchFormOne()).unwrap()
-  }, [])
+  }, [dispatch])
   
 
   return (
-    formOneData.status === 'loading' ? <CustomLoadingComponent/>  : <FORM_IRB1_TextFiled formData={formOneData['data']} />
+    formOneData.status === 'loading' ? <CustomLoadingComponent/>  : <FORM_IRB1_TextFiled />
   );
 }
 

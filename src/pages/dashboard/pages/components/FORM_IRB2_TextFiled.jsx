@@ -78,7 +78,7 @@ const FORM_IRB2_TextFiled = () => {
             toast.error(resp['msg'], { toastId: dataId })
             return;
         }
-        nav('/', { replace: true })
+        nav(-1, { replace: true })
         toast.success(resp['msg'])
     }
 

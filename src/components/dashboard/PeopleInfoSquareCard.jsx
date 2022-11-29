@@ -7,6 +7,7 @@ function PeopleInfoSquareCard({
   name,
   title,
   marginEnd,
+  onTap
 }) {
   return (
     <Col
@@ -23,6 +24,7 @@ function PeopleInfoSquareCard({
         <h4>{name}</h4>
         <p>{title}</p>
         <Button
+        onClick={onTap}
           className="bg-success bg-opacity-25 text-dark"
           variant="success"
         >
